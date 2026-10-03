@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4MQ8PHH7T"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-G4MQ8PHH7T');
+  </script>
+  
+  <meta name="google-site-verification" content="xyIEzBKAISm0GpwHevG6H2OD84DAG8pliiGei0OsNMU" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home</title>
+  <link rel="icon" href="./siteimages/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="./siteimages/apple-touch-icon.png" type="image/png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000000;
+      color: #e0e0e0;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    #tsparticles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* --- LIQUID GLASS PASSWORD SCREEN --- */
+    #passwordScreen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .glass-card {
+      background: rgba(10, 10, 12, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(24px) saturate(150%);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      padding: 40px 45px;
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+    }
+
+    #passwordScreen h2 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      font-size: 2rem;
+      margin-bottom: 24px;
+      color: #ffffff;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    #passwordScreen input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      font-size: 1rem;
+      background: rgba(0, 0, 0, 0.4);
+      color: #ffffff;
+      outline: none;
+      transition: all 0.3s ease;
+      text-align: center;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    #passwordScreen input:focus {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(20, 20, 25, 0.5);
+    }
+
+    #passwordScreen button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 400;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    #passwordScreen button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    #passwordScreen #error {
+      color: #ff6b6b;
+      margin-top: 16px;
+      font-size: 0.9rem;
+      font-weight: 400;
+      display: none;
+    }
+
+    /* --- LIQUID GLASS MAIN CONTENT --- */
+    #realContent {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 10, 12, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(24px) saturate(150%);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      padding: 50px 60px;
+      border-radius: 32px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    }
+
+    #title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      font-size: 3.5rem;
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      margin-bottom: 2rem;
+      letter-spacing: -0.5px;
+    }
+
+    #button-container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    button#bypass-button {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 16px 40px;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 180px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    button#bypass-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    .no-fix-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .no-fix-box a {
+      font-size: 0.95rem;
+      color: #999;
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    .no-fix-box a:hover {
+      color: #ffffff;
+    }
+
+    .no-fix-box div {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    #random-text {
+      margin-top: 35px;
+      font-size: 0.9rem;
+      color: #888;
+      text-align: center;
+      max-width: 400px;
+      line-height: 1.5;
+      font-weight: 300;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.96); filter: blur(5px); }
+      to { opacity: 1; transform: scale(1); filter: blur(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="tsparticles"></div>
+
+<!-- Glassy Password Screen -->
+<div id="passwordScreen">
+  <div class="glass-card">
+    <div id="loginForm">
+      <h2>Enter Password</h2>
+      <input type="password" id="passwordInput" placeholder="Password" />
+      <button onclick="checkPassword()">Enter</button>
+      <p id="error">Incorrect password</p>
+    </div>
+  </div>
+</div>
+
+<!-- Main Glass Content -->
+<div id="realContent" style="display:none;">
+  <div id="title">Fix Selector</div>
+
+  <div id="button-container">
+    <button id="bypass-button">Fix</button>
+    <div class="no-fix-box">
+      <a href="site">No Fix</a>
+      <div>less features</div>
+    </div>
+  </div>
+
+  <div id="random-text"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+<script>
+  tsParticles.load("tsparticles", {
+    fullScreen: { enable: false },
+    fpsLimit: 60,
+    particles: {
+      color: { value: "#ffffff" },
+      links: {
+        color: "#ffffff",
+        distance: 120,
+        enable: true,
+        opacity: 0.05,
+        width: 1
+      },
+      collisions: { enable: false },
+      move: {
+        directions: "none",
+        enable: true,
+        outModes: { default: "bounce" },
+        random: false,
+        speed: 0.4,
+        straight: false
+      },
+      number: { density: { enable: true, area: 800 }, value: 30 },
+      opacity: { value: 0.1 },
+      shape: { type: "circle" },
+      size: { value: { min: 1, max: 3 } }
+    },
+    detectRetina: true
+  });
+</script>
+
+<script>
+  const bypassBtn = document.getElementById('bypass-button');
+
+  bypassBtn.addEventListener('click', () => {
+    const newTab = window.open('about:blank');
+    newTab.opener = null;
+    if (!newTab) {
+      alert("Pop-up blocked! Please allow pop-ups for this site.");
+      return;
+    }
+
+    window.location.href = 'https://classroom.google.com';
+
+    const code = `
+  document.title = "Home";
+
+  const favicon = document.createElement('link');
+  favicon.rel = 'icon';
+  favicon.href = './siteimages/apple-touch-icon.png';
+  document.head.appendChild(favicon);
+
+  const style = document.createElement('style');
+  style.textContent = \`
+    body {
+      margin: 0;
+      background: #000000;
+    }
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+    }
+    #go-home-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      padding: 12px;
+      background: rgba(20, 20, 25, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #go-home-btn:hover {
+      background: rgba(40, 40, 45, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    #go-home-btn.expanded {
+      width: auto;
+      border-radius: 16px;
+      padding: 0 20px;
+      font-weight: 300;
+      font-family: sans-serif;
+    }
+    #go-home-btn span {
+      margin-left: 12px;
+      font-size: 1rem;
+      display: none;
+    }
+    #go-home-btn.expanded span {
+      display: inline;
+    }
+  \`;
+  document.head.appendChild(style);
+
+  const iframe = document.createElement('iframe');
+  iframe.src = 'site';
+  document.body.appendChild(iframe);
+
+  const goHomeBtn = document.createElement('button');
+  goHomeBtn.id = 'go-home-btn';
+  goHomeBtn.innerHTML = '🏠<span>Go Home</span>';
+
+  goHomeBtn.addEventListener('mouseenter', () => {
+    goHomeBtn.classList.add('expanded');
+  });
+  goHomeBtn.addEventListener('mouseleave', () => {
+    goHomeBtn.classList.remove('expanded');
+  });
+  goHomeBtn.addEventListener('click', () => {
+    iframe.src = iframe.src;
+  });
+
+  document.body.appendChild(goHomeBtn);
+`;
+
+    const script = newTab.document.createElement('script');
+    script.textContent = code;
+    newTab.document.body.innerHTML = '';
+    newTab.document.body.appendChild(script);
+  });
+
+  document.getElementById("passwordInput").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") checkPassword();
+  });
+
+  const randomTexts = [
+    "Welcome back!",
+    "Don't let the teachers catch ya!",
+    "I've got my eye on you...",
+    "Would you rather play video games or do your school work? I know which one you chose.",
+    "Does anyone want to hop on some games?",
+    "I have a dream that every kid will be able to play video games in school.",
+    "Fun Fact: This text has a 1 in 1,000,000 chance of appearing! Edit: No it doesn't that's a lie.",
+    "Fun Fact: This text has a 1 in 12 chance of appearing! Edit: It really does and it's not a lie.",
+    "This text appearing 1 out of 12 times means there are 11 other quotes like this waiting to be discovered!",
+    ".(emit-eerf evah uoy sselun) krow ruoy oD",
+    "Special thanks to you!",
+    "Recommend some games you like using the request form!",
+  ];
+
+  function showRandomText() {
+    const chosen = randomTexts[Math.floor(Math.random() * randomTexts.length)];
+    document.getElementById("random-text").textContent = chosen;
+  }
+
+  // --- PASSWORD LOGIC ---
+  function unlockSite() {
+    document.getElementById("passwordScreen").style.display = "none";
+    document.getElementById("realContent").style.display = "flex";
+    showRandomText();
+  }
+
+  function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    if (input === "lebronjames") {
+      // Directly unlock the site
+      unlockSite();
+    } else if (input === "secret") {
+      // Bypass route directly
+      const newTab = window.open('about:blank');
+      newTab.opener = null;
+      if (!newTab) {
+        alert("Pop-up blocked! Please allow pop-ups for this site.");
+        return;
+      }
+
+      window.location.href = 'https://classroom.google.com';
+
+      const code = `
+  document.title = "Home";
+
+  const favicon = document.createElement('link');
+  favicon.rel = 'icon';
+  favicon.href = './siteimages/apple-touch-icon.png';
+  document.head.appendChild(favicon);
+
+  const style = document.createElement('style');
+  style.textContent = \`
+    body {
+      margin: 0;
+      background: #000000;
+    }
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+    }
+    #go-home-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      padding: 12px;
+      background: rgba(20, 20, 25, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #go-home-btn:hover {
+      background: rgba(40, 40, 45, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    #go-home-btn.expanded {
+      width: auto;
+      border-radius: 16px;
+      padding: 0 20px;
+      font-weight: 300;
+      font-family: sans-serif;
+    }
+    #go-home-btn span {
+      margin-left: 12px;
+      font-size: 1rem;
+      display: none;
+    }
+    #go-home-btn.expanded span {
+      display: inline;
+    }
+  \`;
+  document.head.appendChild(style);
+
+  const iframe = document.createElement('iframe');
+  iframe.src = 'https://deploy-preview-12--zearnhaas.netlify.app';
+  document.body.appendChild(iframe);
+
+  const goHomeBtn = document.createElement('button');
+  goHomeBtn.id = 'go-home-btn';
+  goHomeBtn.innerHTML = '🏠<span>Go Home</span>';
+
+  goHomeBtn.addEventListener('mouseenter', () => {
+    goHomeBtn.classList.add('expanded');
+  });
+  goHomeBtn.addEventListener('mouseleave', () => {
+    goHomeBtn.classList.remove('expanded');
+  });
+  goHomeBtn.addEventListener('click', () => {
+    iframe.src = iframe.src;
+  });
+
+  document.body.appendChild(goHomeBtn);
+`;
+
+      const script = newTab.document.createElement('script');
+      script.textContent = code;
+      newTab.document.body.innerHTML = '';
+      newTab.document.body.appendChild(script);
+
+    } else {
+      document.getElementById("error").style.display = "block";
+    }
+  }
+</script>
+
+</body>
+</html>
